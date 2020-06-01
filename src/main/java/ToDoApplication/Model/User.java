@@ -1,26 +1,24 @@
 package ToDoApplication.Model;
 
 
-import java.time.LocalDateTime;
-
 public class User {
     private short id;
-    private String name;
-    private String pasword;
+    private String username;
+    private String password;
     private String email;
     private boolean isAdmin;
 
-    public User(short id, String name, String pasword, String email, boolean isAdmin) {
+    public User(short id, String username, String password, String email, boolean isAdmin) {
         this.id = id;
-        this.name = name;
-        this.pasword = pasword;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.isAdmin = isAdmin;
     }
 
-    public User(String name, String pasword, String email, boolean isAdmin) {
-        this.name = name;
-        this.pasword = pasword;
+    public User(String username, String password, String email, boolean isAdmin) {
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.isAdmin = isAdmin;
     }
@@ -33,20 +31,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPasword() {
-        return pasword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasword(String pasword) {
-        this.pasword = pasword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
