@@ -16,9 +16,15 @@ public class Menu {
     public void userMenu(){
         System.out.println("Welcome to the user menu!");
         System.out.println("1. Add new entry." +
-                "\n 2. Check all entries." +
+                "\n2. Check all entries." +
                 "\n3. Delete entries." +
                 "\n4. Exit to main menu.");
+    }
+
+    public void registrationiMenu(){
+        System.out.println("Welcome to the registration menu!");
+        System.out.println("Enter your information: ");
+
     }
 
     public  void adminMenu(){
