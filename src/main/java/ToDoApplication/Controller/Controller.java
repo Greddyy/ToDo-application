@@ -26,7 +26,8 @@ public class Controller {
 //        ???:D
 //        Domain domain = new Domain();
 //        domain.getUser(Username);
-        ToDoDAO toDoDAO = new ToDoDAO();
+        // toDoDAO should be deleted, right?
+//        ToDoDAO toDoDAO = new ToDoDAO();
         String msg = toDoDAO.addToDo(toDo);
         if(msg.contains("successfully")){
             System.out.println("New user successfully added!");
