@@ -1,5 +1,6 @@
 package ToDoApplication.Controller;
 
+import ToDoApplication.DAO.Domain;
 import ToDoApplication.DAO.ToDoDAO;
 import ToDoApplication.Model.ToDo;
 
@@ -22,6 +23,9 @@ public class Controller {
         System.out.println("User id");
         short user_id = sc.nextShort();
         ToDo toDo = new ToDo(entryName, entryContent, date, time, user_id);
+//        ???:D
+//        Domain domain = new Domain();
+//        domain.getUser(Username);
         ToDoDAO toDoDAO = new ToDoDAO();
         String msg = toDoDAO.addToDo(toDo);
         if(msg.contains("successfully")){
