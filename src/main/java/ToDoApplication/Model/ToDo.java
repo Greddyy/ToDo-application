@@ -83,7 +83,9 @@ public class ToDo {
         return user_id;
     }
 
-    public void setUser_id(short user_id) {
+    public  short setUser_id(short user_id) {
+
         this.user_id = user_id;
+        return user_id;
     }
 }

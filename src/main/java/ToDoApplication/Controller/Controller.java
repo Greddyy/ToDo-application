@@ -3,6 +3,7 @@ package ToDoApplication.Controller;
 import ToDoApplication.DAO.Domain;
 import ToDoApplication.DAO.ToDoDAO;
 import ToDoApplication.Model.ToDo;
+import ToDoApplication.Utils.Constant;
 
 
 import java.time.LocalDateTime;
@@ -20,14 +21,9 @@ public class Controller {
         String entryName = sc.nextLine();
         System.out.println("Content of the entry: ");
         String entryContent = sc.nextLine();
-        System.out.println("User id");
-        short user_id = sc.nextShort();
+        short user_id = (Constant.LOGGED_IN_USER_ID);
         ToDo toDo = new ToDo(entryName, entryContent, date, time, user_id);
-//        ???:D
-//        Domain domain = new Domain();
-//        domain.getUser(Username);
-        // toDoDAO should be deleted, right?
-//        ToDoDAO toDoDAO = new ToDoDAO();
+        ToDoDAO toDoDAO = new ToDoDAO();
         String msg = toDoDAO.addToDo(toDo);
         if(msg.contains("successfully")){
             System.out.println("New user successfully added!");

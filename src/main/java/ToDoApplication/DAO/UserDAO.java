@@ -8,11 +8,12 @@ import java.sql.*;
 public class UserDAO {
 
 
-    public String loginUser(String username, String  password) throws SQLException {
+    public User loginUser(String username, String  password) throws SQLException {
+
+        User user = null;
         ResultSet resultSet = null;
         String msg = "";
         PreparedStatement preparedStatement = null;
-
 
         try {
             Connection connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME,  "root",  "");
@@ -22,17 +23,20 @@ public class UserDAO {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
 
-            if(resultSet.next()) {
-                msg = "Login is successful!";
-            } else {
-                System.out.println("Wrong login credentials!");
+            while (resultSet.next()){
+                String username2 = resultSet.getString("username");
+                String password2 = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                boolean admin = resultSet.getBoolean("admin");
+                user = new User(username2,password2,email,admin);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Wrong credentials!");
         }
-       return msg;
+       return user;
 
     }
+
     public String deleteUser(User user){
         return null;
     }
