@@ -24,11 +24,12 @@ public class UserDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
+                short id = resultSet.getShort("id");
                 String username2 = resultSet.getString("username");
                 String password2 = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                boolean admin = resultSet.getBoolean("admin");
-                user = new User(username2,password2,email,admin);
+                boolean isAdmin = resultSet.getBoolean("admin");
+                user = new User(id, username2,password2,email,isAdmin);
             }
         } catch (SQLException e) {
             System.out.println("Wrong credentials!");
