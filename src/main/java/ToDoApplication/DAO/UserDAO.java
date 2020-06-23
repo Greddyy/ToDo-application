@@ -8,7 +8,7 @@ import java.sql.*;
 public class UserDAO {
 
 
-    public User loginUser(String username, String  password) throws SQLException {
+    public User loginUser(String username, String  password) {
 
         User user = null;
         ResultSet resultSet = null;
