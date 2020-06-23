@@ -1,6 +1,5 @@
 package ToDoApplication.Controller;
 
-import ToDoApplication.DAO.Domain;
 import ToDoApplication.DAO.ToDoDAO;
 import ToDoApplication.Model.ToDo;
 import ToDoApplication.Utils.Constant;
