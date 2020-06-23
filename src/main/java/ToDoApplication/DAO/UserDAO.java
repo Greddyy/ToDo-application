@@ -14,9 +14,10 @@ public class UserDAO {
         ResultSet resultSet = null;
         String msg = "";
         PreparedStatement preparedStatement = null;
+        Connection connection = null;
 
         try {
-            Connection connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME,  "root",  "");
+             connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME,  "root",  "");
             preparedStatement = connection.prepareStatement("SELECT  * FROM  " + Constant.USER_TABLE + " Where username = ? AND password = ?");
 //            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1,username);
@@ -33,6 +34,28 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             System.out.println("Wrong credentials!");
+        } finally {
+            if (resultSet !=null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
        return user;
 
@@ -48,12 +71,14 @@ public class UserDAO {
     public String registerUser(User user){
 
         String msg = "";
+        PreparedStatement preparedStatement = null;
+        Connection connection =null;
 
         try{
 
-            Connection connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME, "root", "");
+            connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME, "root", "");
             String query = "INSERT INTO " + Constant.USER_TABLE + " (username, password, email, admin) VALUES (?,?,?,?) ";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getEmail());
@@ -64,6 +89,21 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             msg = "Failure adding new user";
+        } finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return msg;
     }
