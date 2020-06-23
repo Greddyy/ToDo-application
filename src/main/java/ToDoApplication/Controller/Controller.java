@@ -1,7 +1,6 @@
 package ToDoApplication.Controller;
 
-import ToDoApplication.DAO.Domain;
-import ToDoApplication.DAO.ToDoDAO;
+import ToDoApplication.DAO.ToDoDao;
 import ToDoApplication.Model.ToDo;
 import ToDoApplication.Utils.Constant;
 
@@ -23,7 +22,7 @@ public class Controller {
         String entryContent = sc.nextLine();
         short user_id = (Constant.LOGGED_IN_USER_ID);
         ToDo toDo = new ToDo(entryName, entryContent, date, time, user_id);
-        ToDoDAO toDoDAO = new ToDoDAO();
+        ToDoDao toDoDAO = new ToDoDao();
         String msg = toDoDAO.addToDo(toDo);
         if(msg.contains("successfully")){
             System.out.println("New user successfully added!");
@@ -35,7 +34,7 @@ public class Controller {
 
     public static void getEntries(){
         System.out.println("All entries from the table: ");
-        ToDoDAO toDoDAO = new ToDoDAO();
+        ToDoDao toDoDAO = new ToDoDao();
         toDoDAO.getAllEntries();
     }
 }

@@ -1,6 +1,6 @@
 package ToDoApplication.Controller;
 
-import ToDoApplication.DAO.UserDAO;
+import ToDoApplication.DAO.UserDao;
 import ToDoApplication.Model.User;
 import ToDoApplication.Utils.Constant;
 import ToDoApplication.View.Menu;
@@ -19,7 +19,7 @@ public class LoginController {
             String username = input.nextLine();
             System.out.println("Enter your password: ");
             String password = input.nextLine();
-            UserDAO userDAO = new UserDAO();
+            UserDao userDAO = new UserDao();
             User user = userDAO.loginUser(username,password);
             Constant.LOGGED_IN_USER_ID = user.getId();
             Menu menu = new Menu();
