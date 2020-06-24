@@ -1,4 +1,4 @@
 package ToDoApplication.DAO;
 
-public interface DAO {
+public interface Dao {
 }

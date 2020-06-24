@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public void mainMEnu(){
+    public void mainMenu(){
         System.out.println();
         System.out.println("\tWelcome to ToDo App!");
         System.out.println("Please choose your activity: ");
@@ -21,7 +21,7 @@ public class Menu {
                 "\n4. Exit to main menu.");
     }
 
-    public void registrationiMenu(){
+    public void registrationMenu(){
         System.out.println("Welcome to the registration menu!");
         System.out.println("Enter your information: ");
 

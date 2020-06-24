@@ -5,7 +5,7 @@ import ToDoApplication.Utils.Constant;
 
 import java.sql.*;
 
-public class UserDAO {
+public class UserDao {
 
 
     public User loginUser(String username, String  password) throws SQLException {

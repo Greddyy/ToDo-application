@@ -1,6 +1,6 @@
 package ToDoApplication.Controller;
 
-import ToDoApplication.DAO.UserDAO;
+import ToDoApplication.DAO.UserDao;
 import ToDoApplication.Model.User;
 
 import java.util.Scanner;
@@ -18,7 +18,7 @@ public class RegistrationController {
         System.out.println("Are you an admin? \n Press Y or N");
         boolean isAdmin = input.nextBoolean();
         User user = new User(username, password, email, isAdmin);
-        UserDAO userDAO = new UserDAO();
+        UserDao userDAO = new UserDao();
         String msg = userDAO.registerUser(user);
         if(msg.contains("successfully")){
             System.out.println("New user successfully added!");
