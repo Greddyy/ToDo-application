@@ -15,12 +15,14 @@ public class ToDoDao {
 
     public String addToDo(ToDo todo){
         String msg = "";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
 
         try{
-            Connection connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME,"root", "");
+            connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME,"root", "");
             String query = "INSERT INTO " + Constant.TODO_TABLE + "(entryName, entryContent, date, time, user_id) VALUES (?,?,?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, todo.getEntryName());
             preparedStatement.setString(2, todo.getEntryContent());
             preparedStatement.setDate(3, todo.getDate());
@@ -32,6 +34,21 @@ public class ToDoDao {
         } catch (SQLException e) {
             e.printStackTrace();
             msg = "failure adding new entry";
+        } finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return msg;
     }
@@ -65,6 +82,28 @@ public class ToDoDao {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resultSet!=null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return resultSet;
     }
