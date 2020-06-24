@@ -5,7 +5,7 @@ import ToDoApplication.Utils.Constant;
 
 import java.sql.*;
 
-public class UserDAO {
+public class UserDao {
 
     public User getUser(String username){
         Connection connection = null;
@@ -37,7 +37,7 @@ public class UserDAO {
     }
 
 
-    public User loginUser(String username, String  password) throws SQLException {
+    public User loginUser(String username, String  password) {
 
         User user = null;
         ResultSet resultSet = null;
