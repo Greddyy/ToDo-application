@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToDoDao {
+public class ToDoDao extends BaseDao {
 
 
 
@@ -35,20 +35,7 @@ public class ToDoDao {
             e.printStackTrace();
             msg = "failure adding new entry";
         } finally {
-            if (connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closeResource(connection, preparedStatement);
         }
         return msg;
     }
@@ -83,27 +70,7 @@ public class ToDoDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (resultSet!=null){
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closeResource(connection, preparedStatement, resultSet);
         }
         return resultSet;
     }

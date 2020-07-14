@@ -5,7 +5,7 @@ import ToDoApplication.Utils.Constant;
 
 import java.sql.*;
 
-public class UserDao {
+public class UserDao extends BaseDao {
 
     public User getUser(String username){
         Connection connection = null;
@@ -64,27 +64,8 @@ public class UserDao {
         } catch (SQLException e) {
             System.out.println("Wrong credentials!");
         } finally {
-            if (resultSet !=null){
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closeResource(connection, preparedStatement, resultSet);
+
         }
        return user;
 
@@ -119,20 +100,7 @@ public class UserDao {
             e.printStackTrace();
             msg = "Failure adding new user";
         } finally {
-            if (connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closeResource(connection, preparedStatement);
         }
         return msg;
     }
