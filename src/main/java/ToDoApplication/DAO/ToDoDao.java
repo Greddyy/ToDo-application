@@ -72,6 +72,8 @@ public class ToDoDao extends BaseDao {
         return resultSet;
     }
 
+
+
 //    public  List<ToDo> getEntriesList(){
 //        String query = "SELECT * FROM entry";
 //        List<ToDo> list = new ArrayList<ToDo>();

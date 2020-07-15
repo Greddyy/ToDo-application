@@ -25,7 +25,8 @@ public class LoginController {
             Menu menu = new Menu();
             menu.userMenu();
         } catch (RuntimeException e) {
-            System.out.println("Wrong credentials");
+            System.out.println("Wrong credentials!");
+            throw new RuntimeException(e.getMessage(), e);
 
         }
     }

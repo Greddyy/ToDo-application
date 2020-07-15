@@ -8,45 +8,31 @@ import java.sql.SQLException;
 abstract class BaseDao {
 
 
-    protected void closeResource(Connection connection, PreparedStatement preparedStatement) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getMessage(), e);
+    protected void closeResource(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
+        this.closeResource(connection, preparedStatement);
+        try {
+            if (resultSet != null) {
+                resultSet.close();
             }
-        }
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getMessage(), e);
-            }
+            closeResource(connection, preparedStatement);
+
+        }catch (SQLException e){
+
         }
     }
 
-    protected void closeResource(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet){
-        if (connection != null){
-            try {
+    protected  void closeResource(Connection connection, PreparedStatement preparedStatement){
+        try {
+            if (connection != null){
                 connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getMessage(), e);
             }
-        }
-        if (preparedStatement != null){
-            try {
+            if (preparedStatement != null){
                 preparedStatement.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getMessage(), e);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
-        if (resultSet!=null){
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getMessage(), e);
-            }
-        }
+
     }
 
 }
