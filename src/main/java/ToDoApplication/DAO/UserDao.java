@@ -11,7 +11,6 @@ public class UserDao extends BaseDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
         boolean isAdmin = false;
         User user = null;
         try {
@@ -25,23 +24,19 @@ public class UserDao extends BaseDao {
                 String  password2 = resultSet.getString("password");
                 String email = resultSet.getString("email");
                 boolean admin = resultSet.getBoolean("admin");
-
                 user = new User(id, username2, password2, email, admin);
-
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return user;
     }
 
 
-    public User loginUser(String username, String  password) {
+    public User loginUser(String username, String  password)  {
 
         User user = null;
         ResultSet resultSet = null;
-        String msg = "";
         PreparedStatement preparedStatement = null;
         Connection connection = null;
 
@@ -62,7 +57,7 @@ public class UserDao extends BaseDao {
                 user = new User(id, username2,password2,email,isAdmin);
             }
         } catch (SQLException e) {
-            System.out.println("Wrong credentials!");
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closeResource(connection, preparedStatement, resultSet);
 
@@ -78,9 +73,7 @@ public class UserDao extends BaseDao {
         return null;
     }
 
-    public String registerUser(User user){
-
-        String msg = "";
+    public void registerUser(User user){
         PreparedStatement preparedStatement = null;
         Connection connection =null;
 
@@ -95,13 +88,11 @@ public class UserDao extends BaseDao {
             preparedStatement.setBoolean(4, user.isAdmin());
 
             preparedStatement.executeUpdate();
-            msg = "New user successfully added!";
         } catch (SQLException e) {
-            e.printStackTrace();
-            msg = "Failure adding new user";
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closeResource(connection, preparedStatement);
         }
-        return msg;
+
     }
 }

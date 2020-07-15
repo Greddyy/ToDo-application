@@ -13,8 +13,7 @@ public class ToDoDao extends BaseDao {
 
 
 
-    public String addToDo(ToDo todo){
-        String msg = "";
+    public void addToDo(ToDo todo){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -29,15 +28,13 @@ public class ToDoDao extends BaseDao {
             preparedStatement.setTime(4, todo.getTime());
             preparedStatement.setShort(5,todo.getUser_id());
             preparedStatement.executeUpdate();
-            msg = "new entry added successfully";
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            msg = "failure adding new entry";
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closeResource(connection, preparedStatement);
         }
-        return msg;
+
     }
 
 
@@ -68,7 +65,7 @@ public class ToDoDao extends BaseDao {
             }
             resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closeResource(connection, preparedStatement, resultSet);
         }

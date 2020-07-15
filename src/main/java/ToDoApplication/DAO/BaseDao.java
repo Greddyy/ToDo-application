@@ -13,14 +13,14 @@ abstract class BaseDao {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
         if (preparedStatement != null) {
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
     }
@@ -30,21 +30,21 @@ abstract class BaseDao {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
         if (preparedStatement != null){
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
         if (resultSet!=null){
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
     }
