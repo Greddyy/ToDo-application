@@ -3,6 +3,7 @@ package ToDoApplication.Controller;
 import ToDoApplication.DAO.UserDao;
 import ToDoApplication.Model.User;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class RegistrationController {
@@ -17,15 +18,16 @@ public class RegistrationController {
         String email = input.nextLine();
         System.out.println("Are you an admin? \n Press Y or N");
         boolean isAdmin = input.nextBoolean();
-        User user = new User(username, password, email, isAdmin);
-        UserDao userDAO = new UserDao();
-        String msg = userDAO.registerUser(user);
-        if(msg.contains("successfully")){
-            System.out.println("New user successfully added!");
-        } else {
-            System.out.println("Something went wrong!");
+        try {
+            User user = new User(username, password, email, isAdmin);
+            UserDao userDAO = new UserDao();
+            userDAO.registerUser(user);
+            System.out.println("User successfully added!");
+            System.exit(0);
+        } catch (RuntimeException e){
+            System.out.println("Something went wrong! Registration failed.");
+            throw new RuntimeException(e.getMessage(), e);
         }
-
 
     }
 

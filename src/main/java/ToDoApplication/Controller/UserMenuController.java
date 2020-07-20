@@ -14,6 +14,10 @@ public class UserMenuController {
                 break;
             case "2":
                 Controller.getEntries();
+                break;
+            case "3":
+                Controller.deleteEntryById();
+                break;
         }
 
     }
