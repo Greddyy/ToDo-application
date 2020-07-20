@@ -3,7 +3,6 @@ package ToDoApplication;
 import ToDoApplication.Controller.MenuController;
 import ToDoApplication.Controller.UserMenuController;
 import ToDoApplication.View.Menu;
-
 import java.sql.SQLException;
 
 public class Main {
@@ -14,7 +13,5 @@ public class Main {
         menuController.menuNavigation();
         UserMenuController userMenuController = new UserMenuController();
         userMenuController.userMenuNavigation();
-
-
     }
 }

@@ -12,21 +12,20 @@ import java.util.List;
 public class ToDoDao extends BaseDao {
 
 
-
-    public void addToDo(ToDo todo){
+    public void addToDo(ToDo todo) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
 
-        try{
-            connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME,"root", "");
+        try {
+            connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME, "root", "");
             String query = "INSERT INTO " + Constant.TODO_TABLE + "(entryName, entryContent, date, time, user_id) VALUES (?,?,?,?,?)";
-             preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, todo.getEntryName());
             preparedStatement.setString(2, todo.getEntryContent());
             preparedStatement.setDate(3, todo.getDate());
             preparedStatement.setTime(4, todo.getTime());
-            preparedStatement.setShort(5,todo.getUser_id());
+            preparedStatement.setShort(5, todo.getUser_id());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -38,20 +37,20 @@ public class ToDoDao extends BaseDao {
     }
 
 
-
-    public  ResultSet getAllEntries(){
+    public ResultSet getEntryById() {
         String query = "";
-        query = "SELECT * FROM entry";
+        query = "SELECT * FROM entry WHERE user_id=?";
 
         ResultSet resultSet = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        try{
+        try {
             connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME, "root", "");
             preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery(query);
-            while (resultSet.next()){
+            preparedStatement.setShort(1, Constant.LOGGED_IN_USER_ID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 short id = resultSet.getShort("id");
                 String entryName = resultSet.getString("entryName");
                 String entryContent = resultSet.getString("entryContent");
@@ -72,35 +71,24 @@ public class ToDoDao extends BaseDao {
         return resultSet;
     }
 
+    public void deleteEntryById(short entry_id) {
+        String query = "";
+        query = "DELETE FROM entry where id=?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
 
-//    public  List<ToDo> getEntriesList(){
-//        String query = "SELECT * FROM entry";
-//        List<ToDo> list = new ArrayList<ToDo>();
-//        ToDo toDo = null;
-//        ResultSet resultSet = null;
-//
-//        try {
-//            Connection connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME, "root", "");
-//            Statement statement = connection.createStatement();
-//            resultSet = statement.executeQuery(query);
-//            while (resultSet.next()){
-//                toDo.setId(resultSet.getShort("id"));
-//                toDo.setEntryName(resultSet.getString("entryName"));
-//                toDo.setEntryContent(resultSet.getString("entryContent"));
-//                toDo.setDate(resultSet.getDate("date"));
-//                toDo.setTime(resultSet.getTime("time"));
-//
-//                list.add(toDo);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
-
-
+        try {
+            connection = DriverManager.getConnection(Constant.URL + Constant.DB_NAME, "root", "");
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setShort(1, entry_id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResource(connection, preparedStatement);
+        }
+    }
 
 
 }

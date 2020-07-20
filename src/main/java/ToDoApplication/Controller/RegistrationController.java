@@ -22,6 +22,8 @@ public class RegistrationController {
             User user = new User(username, password, email, isAdmin);
             UserDao userDAO = new UserDao();
             userDAO.registerUser(user);
+            System.out.println("User successfully added!");
+            System.exit(0);
         } catch (RuntimeException e){
             System.out.println("Something went wrong! Registration failed.");
             throw new RuntimeException(e.getMessage(), e);
